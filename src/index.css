@@ -1,42 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* Futuristic Portfolio Design System - Project Manager Theme */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Futuristic Color Palette */
+    --background: 222 84% 4%;
+    --foreground: 180 100% 90%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 225 25% 8%;
+    --card-foreground: 180 100% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 225 25% 8%;
+    --popover-foreground: 180 100% 90%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Neon Electric Theme */
+    --primary: 180 100% 50%;  /* Electric Cyan */
+    --primary-foreground: 222 84% 4%;
+    --primary-glow: 180 100% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 260 85% 65%;  /* Electric Purple */
+    --secondary-foreground: 180 100% 90%;
+    --secondary-glow: 260 85% 80%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 140 100% 50%;  /* Neon Green */
+    --accent-foreground: 222 84% 4%;
+    --accent-glow: 140 100% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 225 25% 15%;
+    --muted-foreground: 180 20% 60%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 180 100% 90%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 180 50% 25%;
+    --input: 225 25% 12%;
+    --ring: 180 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Futuristic Gradients */
+    --gradient-cyber: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --gradient-neon: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-dark: linear-gradient(180deg, hsl(225 25% 6%), hsl(225 25% 3%));
+    --gradient-glow: radial-gradient(circle, hsl(var(--primary) / 0.2), transparent 70%);
+
+    /* Shadows with Glow Effects */
+    --shadow-neon: 0 0 20px hsl(var(--primary) / 0.5);
+    --shadow-cyber: 0 0 30px hsl(var(--secondary) / 0.3);
+    --shadow-accent: 0 0 25px hsl(var(--accent) / 0.4);
+    --shadow-deep: 0 10px 40px hsl(225 25% 2% / 0.8);
+
+    /* Grid Pattern */
+    --grid-pattern: 
+      linear-gradient(90deg, hsl(var(--border) / 0.1) 1px, transparent 1px),
+      linear-gradient(hsl(var(--border) / 0.1) 1px, transparent 1px);
+
+    /* Animations */
+    --transition-cyber: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: box-shadow 0.3s ease, transform 0.3s ease;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +125,211 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-rajdhani;
+    background-image: var(--grid-pattern);
+    background-size: 30px 30px;
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-orbitron;
+  }
+}
+
+@layer components {
+  /* Cyber Grid Background */
+  .cyber-grid {
+    background-image: var(--grid-pattern);
+    background-size: 30px 30px;
+  }
+
+  /* Neon Glow Effects */
+  .glow-neon {
+    box-shadow: var(--shadow-neon);
+  }
+
+  .glow-cyber {
+    box-shadow: var(--shadow-cyber);
+  }
+
+  .glow-accent {
+    box-shadow: var(--shadow-accent);
+  }
+
+  /* Animated Border */
+  .border-animate {
+    position: relative;
+    border: 1px solid hsl(var(--border));
+  }
+
+  .border-animate::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: var(--gradient-cyber);
+    border-radius: inherit;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  .border-animate:hover::before {
+    opacity: 1;
+  }
+
+  /* Futuristic Button Styles */
+  .btn-cyber {
+    @apply relative overflow-hidden;
+    background: var(--gradient-cyber);
+    transition: var(--transition-glow);
+  }
+
+  .btn-cyber::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .btn-cyber:hover::before {
+    left: 100%;
+  }
+
+  .btn-cyber:hover {
+    box-shadow: var(--shadow-neon);
+    transform: translateY(-2px);
+  }
+
+  /* Holographic Text Effect */
+  .text-hologram {
+    background: var(--gradient-neon);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: hologram-shimmer 3s ease-in-out infinite alternate;
+  }
+
+  /* Scanner Line Animation */
+  .scanner-line {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanner-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-neon);
+    animation: scanner 2s linear infinite;
+  }
+
+  /* Glitch Effect */
+  .glitch {
+    position: relative;
+    animation: glitch-1 2s linear infinite;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch::before {
+    animation: glitch-2 3s linear infinite;
+    color: hsl(var(--primary));
+    z-index: -1;
+  }
+
+  .glitch::after {
+    animation: glitch-3 2.5s linear infinite;
+    color: hsl(var(--accent));
+    z-index: -2;
+  }
+}
+
+@layer utilities {
+  /* Custom Gradients */
+  .bg-gradient-cyber {
+    background: var(--gradient-cyber);
+  }
+
+  .bg-gradient-neon {
+    background: var(--gradient-neon);
+  }
+
+  .bg-gradient-dark {
+    background: var(--gradient-dark);
+  }
+
+  /* Font Families */
+  .font-orbitron {
+    font-family: 'Orbitron', monospace;
+  }
+
+  .font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  /* Animations */
+  @keyframes hologram-shimmer {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+
+  @keyframes scanner {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  @keyframes glitch-1 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+  }
+
+  @keyframes glitch-2 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(2px, 0); }
+    40% { transform: translate(-2px, 0); }
+    60% { transform: translate(0, 2px); }
+    80% { transform: translate(0, -2px); }
+  }
+
+  @keyframes glitch-3 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(1px, -1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(1px, 1px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+    }
+    50% { 
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.8);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
   }
 }
